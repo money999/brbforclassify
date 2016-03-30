@@ -22,14 +22,21 @@ for i = 1:preN
         error('匹配越界')
     end
     
-    matchDegrees(l,i) = (indata(i) - prA(i).a(l)) / (prA(i).a(e) - prA(i).a(l));
-    matchDegrees(e,i) = (prA(i).a(e) - indata(i)) / (prA(i).a(e) - prA(i).a(l));
+    if l == e
+        matchDegrees(l,i) = 1;
+    else
+        matchDegrees(l,i) = (indata(i) - prA(i).a(l)) / (prA(i).a(e) - prA(i).a(l));
+        matchDegrees(e,i) = (prA(i).a(e) - indata(i)) / (prA(i).a(e) - prA(i).a(l));
+    end
 end
 
-tmpact = sum(matchDegrees,2);%tmpact是列向量
+ruleWeight = sum(matchDegrees,2);%tmpact是列向量
 %actrule(mai, 2) = 0;%第一列存激活规则的编号，第二列存激活权重wk
 
-ruleWeight = [rule.wR]' .* tmpact;
+%%%chang leilei的table4数据把下面两个公式写反了才得出来final rule weights
+%%%而且没有前提属性权重
+%ruleWeight = ruleWeight/sum(ruleWeight);
+ruleWeight = [rule.wR]' .* ruleWeight;
 ruleWeight = ruleWeight/sum(ruleWeight);
 
 m = zeros(RNum, BNum);

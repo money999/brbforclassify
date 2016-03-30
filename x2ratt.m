@@ -8,7 +8,7 @@ function [ ratt ] = x2ratt( x, par )
 
 x = x';
 
-rNum = prod(par.preNE);
+rNum = par.rNum;
 preN = size(par.preNE, 2);
 BNum = par.BNum;
 rule(rNum).B = [];

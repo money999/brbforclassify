@@ -15,6 +15,7 @@ else
     x = [[rule.B] [rule.wR]];
 end
 
+
 if par.prAwFlag
     x = [x [prA.w]];
 end
